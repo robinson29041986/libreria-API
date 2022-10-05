@@ -1,3 +1,7 @@
-# Node js RESTful API
+# Node js RESTful API Para la Base de Datos PostgresSQL
 
-### Set up
+### Inicializacion
+
+```
+npm start
+```
