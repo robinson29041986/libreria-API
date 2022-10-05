@@ -1,8 +1,8 @@
 import { sequelize } from '../database/Database.js';
 import { DataTypes } from 'sequelize';
-import { OrderDetails } from './OrderDetails.js';
+import { Products } from './Products.js'
 
-export const Products = sequelize.define('products', {
+export const Categories = sequelize.define('categories', {
     id: {
         type: DataTypes.INTEGER,
         autoIncrement: true,
@@ -15,10 +15,6 @@ export const Products = sequelize.define('products', {
     description: {
         type: DataTypes.STRING,
         allowNull: true
-    },
-    price: {
-        type: DataTypes.DECIMAL,
-        allowNull: false
     }
 }, {
     /* Personalización del timestamps */
@@ -27,17 +23,20 @@ export const Products = sequelize.define('products', {
     updatedAt: 'updated_at'
 });
 
-Products.hasMany(OrderDetails,{
+Categories.hasMany(Products,{
+    /* Declaración de la asociación */
     foreignKey: {
-        name: 'products_id',
-        allowNull: false
+        name: 'categories_id',
+        allowNull: false,
     },
     sourceKey: 'id',
-    onDelete: 'SET NULL',
+    /* Acciones de actualización y borrado */
+    onDelete: 'NO ACTION',
     onUpdate: 'CASCADE'
 });
 
-OrderDetails.belongsTo(Products, {
-    foreignKey: 'products_id',
+Products.belongsTo(Categories, {
+    /* Declaración de la asociación */
+    foreignKey: 'categories_id',
     targetId: 'id'
 });
