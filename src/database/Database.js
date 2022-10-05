@@ -1,17 +1,23 @@
 import Sequelize from "sequelize";
-
-export const sequelize = new Sequelize('libreria', 'avengers2024', 'MuS!(@03082024', {
-    host: 'libreria.postgres.database.azure.com',
-    dialect: 'postgres',
+import dotenv from "dotenv";
+dotenv.config();
+export const sequelize = new Sequelize(
+  process.env.DB_NAME,
+  process.env.USER,
+  process.env.PASSWORD,
+  {
+    host: process.env.HOST,
+    dialect: "postgres",
     dialectOptions: {
-        port: 5432,
-        ssl: {
-            require: true,
-        },
-        pool: {
-            max: 5,
-            min: 0,
-            idle: 10000
-        }
-    }
-});
+      port: process.env.PG_PORT,
+      ssl: {
+        require: true,
+      },
+      pool: {
+        max: 5,
+        min: 0,
+        idle: 10000,
+      },
+    },
+  }
+);
