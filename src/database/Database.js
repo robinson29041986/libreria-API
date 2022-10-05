@@ -1,7 +1,5 @@
 import Sequelize from "sequelize";
 
-
-
 export const sequelize = new Sequelize('libreria', 'avengers2024', 'MuS!(@03082024', {
     host: 'libreria.postgres.database.azure.com',
     dialect: 'postgres',
