@@ -1,6 +1,6 @@
 import { sequelize } from '../database/Database.js';
 import { DataTypes } from 'sequelize';
-import { OrderDetails } from './OrderDetails.js';
+import { CartItems } from './CartItems.js';
 
 export const Products = sequelize.define('products', {
     id: {
@@ -27,7 +27,7 @@ export const Products = sequelize.define('products', {
     updatedAt: 'updated_at'
 });
 
-Products.hasMany(OrderDetails,{
+Products.hasMany(CartItems, {
     foreignKey: {
         name: 'products_id',
         allowNull: false
@@ -37,7 +37,7 @@ Products.hasMany(OrderDetails,{
     onUpdate: 'CASCADE'
 });
 
-OrderDetails.belongsTo(Products, {
+CartItems.belongsTo(Products, {
     foreignKey: 'products_id',
     targetId: 'id'
 });

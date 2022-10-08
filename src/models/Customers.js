@@ -1,6 +1,6 @@
 import { sequelize } from "../database/Database.js";
 import { DataTypes } from "sequelize";
-import { Orders } from "./Orders.js";
+import { Cart } from "./Cart.js";
 
 export const Customers = sequelize.define(
   "customers",
@@ -42,7 +42,7 @@ export const Customers = sequelize.define(
   }
 );
 
-Customers.hasMany(Orders, {
+Customers.hasMany(Cart, {
   /* Declaración de la asociación */
   foreignKey: {
     name: "customers_id",
@@ -54,7 +54,7 @@ Customers.hasMany(Orders, {
   onUpdate: "CASCADE",
 });
 
-Orders.belongsTo(Customers, {
+Cart.belongsTo(Customers, {
   /* Declaración de la asociación */
   foreignKey: "customers_id",
   targetId: "id",

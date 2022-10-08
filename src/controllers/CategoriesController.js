@@ -1,4 +1,5 @@
 import { Categories } from "../models/Categories.js";
+import { Products } from "../models/Products.js";
 
 export const getCategories = async (req, res) => {
   try {
@@ -72,4 +73,12 @@ export const deleteCategory = async (req, res) => {
   } catch (error) {
     return res.status(500).json({ message: error.message });
   }
+};
+
+export const getCategoriesProducts = async (req, res) => {
+  const { id } = req.params
+  const products = await Products.findAll({
+    where: { categories_id: id }
+  });
+  res.json(products);
 };
