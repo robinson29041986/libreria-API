@@ -6,7 +6,7 @@ async function main() {
   try {
     /* await sequelize.authenticate();
         console.log('La conexión se ha establecido con éxito.'); */
-    await sequelize.sync({ force: false });
+    await sequelize.sync({ alter: true });
     App.listen(process.env.PORT);
     console.log(
       `El servidor esta escuchando en el puerto', ${process.env.PORT}`
