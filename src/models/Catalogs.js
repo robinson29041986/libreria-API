@@ -1,14 +1,10 @@
 import { sequelize } from '../database/Database.js';
 import { DataTypes } from 'sequelize';
 
-export const CartItems = sequelize.define('cart_item', {
+
+export const Catalogs = sequelize.define('catalog', {
   quantity: {
     type: DataTypes.INTEGER,
-    allowNull: false
-  },
-
-  unit_price: {
-    type: DataTypes.DECIMAL,
     allowNull: false
   },
 
@@ -19,4 +15,4 @@ export const CartItems = sequelize.define('cart_item', {
   timestamps: false
 });
 
-CartItems.removeAttribute('id');
+Catalogs.removeAttribute('id');

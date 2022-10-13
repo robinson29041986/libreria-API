@@ -1,9 +1,10 @@
 import { sequelize } from "../database/Database.js";
 import { DataTypes } from "sequelize";
 import { Cart } from "./Cart.js";
+import { SalesOrder } from "./SalesOrder.js";
 
 export const Customers = sequelize.define(
-  "customers",
+  'customer',
   {
     id: {
       type: DataTypes.INTEGER,
@@ -34,28 +35,33 @@ export const Customers = sequelize.define(
       allowNull: false,
     },
   },
+
+
   {
-    /* Personalización del timestamps */
+    /* Opciones De Sequelize */
+
+    freezeTableName: true,
     timestamps: true,
     createdAt: "created_at",
     updatedAt: "updated_at",
-  }
+  },
 );
 
+/* Relacion Cliente al Carrito */
 Customers.hasMany(Cart, {
   /* Declaración de la asociación */
   foreignKey: {
-    name: "customers_id",
+    name: "customer_id",
     allowNull: false,
   },
   sourceKey: "id",
   /* Acciones de actualización y borrado */
-  onDelete: "SET NULL",
+  onDelete: "RESTRICT",
   onUpdate: "CASCADE",
 });
 
 Cart.belongsTo(Customers, {
   /* Declaración de la asociación */
-  foreignKey: "customers_id",
+  foreignKey: "customer_id",
   targetId: "id",
 });
