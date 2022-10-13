@@ -5,7 +5,7 @@ import {
   getCustomer,
   getCustomers,
   postCustomer,
-  updateCustomer,
+  putCustomer,
 } from "../controllers/CustomersController.js";
 
 const router = Router();
@@ -14,7 +14,7 @@ const router = Router();
 
 router.get("/customers", getCustomer);
 router.post("/customers", postCustomer);
-router.put("/customers/:id", updateCustomer);
+router.put("/customers/:id", putCustomer);
 router.delete("/customers/:id", deleteCustomer);
 router.get("/customers/:id", getCustomers);
 

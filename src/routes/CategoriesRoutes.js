@@ -2,7 +2,7 @@ import { Router } from "express";
 import {
   getCategories,
   postCategory,
-  updateCategory,
+  putCategory,
   deleteCategory,
   getCategory,
   getCategoriesProducts,
@@ -14,7 +14,7 @@ const router = Router();
 
 router.get("/categories", getCategories);
 router.post("/categories", postCategory);
-router.put("/categories/:id", updateCategory);
+router.put("/categories/:id", putCategory);
 router.delete("/categories/:id", deleteCategory);
 router.get("/categories/:id", getCategory);
 router.get("/categories/:id/products", getCategoriesProducts);
