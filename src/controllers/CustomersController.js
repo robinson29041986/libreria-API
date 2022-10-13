@@ -46,7 +46,7 @@ export const postCustomer = async (req, res) => {
   }
 };
 
-export const updateCustomer = async (req, res) => {
+export const putCustomer = async (req, res) => {
   const { id } = req.params;
   const { name, last_name, birthday, cellphone, email, password } = req.body;
 

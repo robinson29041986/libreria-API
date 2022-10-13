@@ -45,7 +45,7 @@ export const postProduct = async (req, res) => {
   }
 };
 
-export const updateProduct = async (req, res) => {
+export const putProduct = async (req, res) => {
   const { id } = req.params;
   const { name, description, price, categories_id } = req.body;
 

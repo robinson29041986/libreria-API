@@ -43,7 +43,7 @@ export const postCategory = async (req, res) => {
   }
 };
 
-export const updateCategory = async (req, res) => {
+export const putCategory = async (req, res) => {
   const { id } = req.params;
   const { name, description } = req.body;
 
