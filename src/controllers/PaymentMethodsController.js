@@ -2,7 +2,22 @@ import { PaymentMethods } from "../models/PaymentMethods.js";
 
 export const getPayments = async (req, res) => {
   try {
-    const paymentMethods = await PaymentMethods.findAll();
+    /* Valores para la paginacion */
+
+    const { page = 0, amount = 10 } = req.query;
+
+    /* buscar todos los metodos de pago */
+
+    const paymentMethods = await PaymentMethods.findAll({
+
+      /* Opciones de paginacion */
+
+      product: [['id', 'ASC']],
+      limit: amount,
+      offset: page * amount
+
+    });
+
     res.json(paymentMethods);
   } catch (error) {
     return res.status(500).json({ message: error.message });
@@ -19,7 +34,7 @@ export const getPayment = async (req, res) => {
     });
 
     if (!paymentMethods)
-      return res.status(404).json({ message: "Payment does nor exits" });
+      return res.status(404).json({ message: "El Metodo de Pago no existe" });
 
     res.json(paymentMethods);
   } catch (error) {

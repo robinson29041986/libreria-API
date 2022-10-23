@@ -1,14 +1,30 @@
 import { Cart } from "../models/Cart.js";
-import { } from "../models/CartItems.js";
+import { CartItems } from "../models/CartItems.js";
+
+
+/* Obtener todo el Contenido del carrito */
 
 export const getCarts = async (req, res) => {
   try {
-    const carts = await Cart.findAll();
+
+    /* Valores de la paginacion*/
+    const { page = 0, amount = 10 } = req.query;
+
+    /* Busqueda de todo el contenido del carrito */
+    const carts = await Cart.findAll({
+
+      /* opciones de paginacion */
+      cart: [['id', 'ASC']],
+      limit: amount,
+      offset: page * amount
+    });
+
     res.json(carts);
   } catch (error) {
     return res.status(500).json({ message: error.message });
   }
 };
+
 
 export const getCart = async (req, res) => {
   try {
@@ -20,7 +36,7 @@ export const getCart = async (req, res) => {
     });
 
     if (!category)
-      return res.status(404).json({ message: "Cart does nor exits" });
+      return res.status(404).json({ message: "El Contenido del Carrito de Compras no existe" });
 
     res.json(cart);
   } catch (error) {
@@ -29,14 +45,20 @@ export const getCart = async (req, res) => {
 };
 
 export const postCart = async (req, res) => {
-  const { name, date, total_price } = req.body;
+  const { date, total_price, payment_id, customer_id, items } = req.body;
 
   try {
     const newCart = await Cart.create({
-      name,
       date,
-      total_price
+      total_price,
+      payment_id,
+      customer_id
     });
+
+    items.forEach(v => { v.cart_id = newCart.id });
+
+
+    const newCartItems = await CartItems.bulkCreate(items);
 
     res.json(newCart);
   } catch (error) {

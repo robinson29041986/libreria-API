@@ -2,7 +2,21 @@ import { SalesOrder } from '../models/SalesOrder.js';
 
 export const getSalesOrder = async (req, res) => {
   try {
-    const salesOrder = await SalesOrder.findAll();
+    /* Valores para la paginacion */
+
+    const { page = 0, amount = 10 } = req.query;
+
+    /* buscar todas las ordenes de Venta */
+
+    const salesOrder = await SalesOrder.findAll({
+
+      /* Opciones de paginacion */
+
+      product: [['id', 'ASC']],
+      limit: amount,
+      offset: page * amount
+
+    });
 
     res.json(salesOrder);
   } catch (error) {
@@ -20,7 +34,7 @@ export const getSaleOrder = async (req, res) => {
     });
 
     if (!saleOrder)
-      return res.status(404).json({ message: "SaleOrder does nor exits" });
+      return res.status(404).json({ message: "La orden de Venta no existe" });
 
     res.json(saleOrder);
   } catch (error) {

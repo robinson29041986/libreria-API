@@ -20,7 +20,7 @@ export const getCategory = async (req, res) => {
     });
 
     if (!category)
-      return res.status(404).json({ message: "Category does nor exits" });
+      return res.status(404).json({ message: "La Categoria no existe" });
 
     res.json(category);
   } catch (error) {

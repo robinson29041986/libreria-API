@@ -1,8 +1,24 @@
 import { Products } from "../models/Products.js";
 
+/* Obtener todos los productos */
+
 export const getProducts = async (req, res) => {
   try {
-    const products = await Products.findAll();
+    /* Valores para la paginacion */
+
+    const { page = 0, amount = 10 } = req.query;
+
+    /* buscar todos los productos */
+
+    const products = await Products.findAll({
+
+      /* Opciones de paginacion */
+
+      product: [['id', 'ASC']],
+      limit: amount,
+      offset: page * amount
+
+    });
 
     res.json(products);
   } catch (error) {
@@ -20,7 +36,7 @@ export const getProduct = async (req, res) => {
     });
 
     if (!product)
-      return res.status(404).json({ message: "Product does nor exits" });
+      return res.status(404).json({ message: "El Producto no existe" });
 
     res.json(product);
   } catch (error) {
@@ -47,14 +63,14 @@ export const postProduct = async (req, res) => {
 
 export const putProduct = async (req, res) => {
   const { id } = req.params;
-  const { name, description, price, categories_id } = req.body;
+  const { name, description, price, category_id } = req.body;
 
   try {
     const products = await Products.findByPk(id);
     products.name = name;
     products.description = description;
     products.price = price;
-    products.categories_id = categories_id;
+    products.category_id = category_id;
     await products.save();
 
     res.json(products);
