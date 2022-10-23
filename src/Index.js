@@ -1,5 +1,5 @@
 import App from "./App.js";
-import { sequelize } from "./database/Database.js";
+import { sequelize } from "./configs/Database.js";
 
 /* función asíncrona para el try catch */
 
@@ -9,7 +9,7 @@ async function main() {
     /* await sequelize.authenticate();
         console.log('La conexión se ha establecido con éxito.'); */
 
-    await sequelize.sync({ force: true });
+    await sequelize.sync({ alter: true });
     App.listen(process.env.PORT);
     console.log(
       `El servidor esta escuchando en el puerto', ${process.env.PORT}`
