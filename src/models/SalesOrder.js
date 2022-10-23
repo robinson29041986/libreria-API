@@ -1,4 +1,4 @@
-import { sequelize } from '../database/Database.js';
+import { sequelize } from '../configs/Database.js';
 import { DataTypes } from 'sequelize';
 
 export const SalesOrder = sequelize.define('sale_order', {
@@ -15,3 +15,4 @@ export const SalesOrder = sequelize.define('sale_order', {
     freezeTableName: true,
     timestamps: false
   });
+

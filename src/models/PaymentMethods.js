@@ -1,4 +1,4 @@
-import { sequelize } from '../database/Database.js';
+import { sequelize } from '../configs/Database.js';
 import { DataTypes } from 'sequelize';
 
 
@@ -12,7 +12,16 @@ export const PaymentMethods = sequelize.define('payment_methods', {
   name: {
     type: DataTypes.STRING(50),
     allowNull: false,
-    unique: true
+    unique: {
+      args: true,
+      msg: 'Ya hay un metodo de pago con ese nombre'
+    },
+    validate: {
+      is: {
+        args: /^[A-Za-z0-9 ]+$/i,
+        msg: 'No se admiten caracteres especiales',
+      }
+    }
   },
   status: {
     type: DataTypes.BOOLEAN,

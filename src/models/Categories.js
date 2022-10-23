@@ -1,4 +1,4 @@
-import { sequelize } from '../database/Database.js';
+import { sequelize } from '../configs/Database.js';
 import { DataTypes } from 'sequelize';
 import { Catalogs } from './Catalogs.js';
 
@@ -10,11 +10,31 @@ export const Categories = sequelize.define('category', {
   },
   name: {
     type: DataTypes.STRING(50),
-    allowNull: false
+    allowNull: false,
+    unique: {
+      args: true,
+      msg: 'Error. Ya hay una categoria con ese nombre.'
+    },
+    validate: {
+      len: {
+        args: [3, 50],
+        msg: 'El nombre debe contener minimo 3 letras.'
+      },
+      is: {
+        args: /^[A-Za-z0-9Á-ú-ü ]+$/u,
+        msg: 'No se admiten caracteres especiales',
+      }
+    }
   },
   description: {
     type: DataTypes.STRING,
-    allowNull: true
+    allowNull: false,
+    validate: {
+      max: {
+        args: 255,
+        msg: 'La descripcion debe tener 255 caracteres.'
+      },
+    }
   }
 }, {
   /* Personalización del timestamps */
