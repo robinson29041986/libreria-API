@@ -11,7 +11,7 @@ export const getCarts = async (req, res) => {
     const { page = 0, amount = 10 } = req.query;
 
     /* Busqueda de todo el contenido del carrito */
-    const carts = await Cart.findAll({
+    const cart = await Cart.findAll({
 
       /* opciones de paginacion */
       cart: [['id', 'ASC']],
@@ -19,7 +19,7 @@ export const getCarts = async (req, res) => {
       offset: page * amount
     });
 
-    res.json(carts);
+    res.json(cart);
   } catch (error) {
     return res.status(500).json({ message: error.message });
   }

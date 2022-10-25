@@ -1,9 +1,25 @@
 import { Categories } from "../models/Categories.js";
 import { Products } from "../models/Products.js";
 
+/* Obtener todos los usuarios */
 export const getCategories = async (req, res) => {
   try {
-    const categories = await Categories.findAll();
+    /* Valores para la paginacion */
+
+    const { page = 0, amount = 10 } = req.query;
+
+    /* buscar todos los usuarios */
+
+    const categories = await Categories.findAll({
+
+      /* Opciones de paginacion */
+
+      user: [['id', 'ASC']],
+      limit: amount,
+      offset: page * amount
+
+    });
+
     res.json(categories);
   } catch (error) {
     return res.status(500).json({ message: error.message });

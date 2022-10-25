@@ -19,7 +19,13 @@ export const CartItems = sequelize.define('cart_item', {
 
   unit_price: {
     type: DataTypes.DECIMAL,
-    allowNull: false
+    allowNull: false,
+    validate: {
+      isNumeric: {
+        args: true,
+        msg: 'Solo se admiten numeros.'
+      }
+    }
   },
 
 }, {

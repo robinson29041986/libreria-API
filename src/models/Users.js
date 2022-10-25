@@ -52,9 +52,33 @@ export const Users = sequelize.define(
         }
       }
     },
+    address: {
+      type: DataTypes.STRING,
+      allowNull: false,
+      validate: {
+        max: {
+          args: 255,
+          msg: 'La direccion puede extender los 255 caracteres'
+        },
+        min: {
+          args: '3',
+          msg: 'La dirección debe contener minimo 3 caracteres'
+        }
+      }
+    },
     cellphone: {
       type: DataTypes.STRING,
-      allowNull: false
+      allowNull: false,
+      validate: {
+        is: {
+          args: /^[0-9 ]+$/u,
+          msg: 'Solo se Admten numeros'
+        },
+        max: {
+          args: 15,
+          msg: 'El Numero de Telefono puede contener 15 cracteres'
+        }
+      }
     },
     email: {
       type: DataTypes.TEXT(100),
