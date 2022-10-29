@@ -16,7 +16,6 @@ export const CartItems = sequelize.define('cart_item', {
       }
     }
   },
-
   unit_price: {
     type: DataTypes.DECIMAL,
     allowNull: false,
@@ -27,12 +26,14 @@ export const CartItems = sequelize.define('cart_item', {
       }
     }
   },
+},
 
-}, {
-  /* Personalización del timestamps */
+  {
+    /* Personalización del timestamps */
 
-  freezeTableName: true,
-  timestamps: false
-});
+    freezeTableName: true,
+    createdAt: "created_at",
+    updatedAt: "updated_at"
+  });
 
 CartItems.removeAttribute('id');

@@ -2,8 +2,7 @@ import { Cart } from "../models/Cart.js";
 import { CartItems } from "../models/CartItems.js";
 
 
-/* Obtener todo el Contenido del carrito */
-
+/* Obtener todos los Carritos */
 export const getCarts = async (req, res) => {
   try {
 
@@ -25,7 +24,7 @@ export const getCarts = async (req, res) => {
   }
 };
 
-
+/* Obtener solo Carrito  */
 export const getCart = async (req, res) => {
   try {
     const { id } = req.params;
@@ -44,20 +43,22 @@ export const getCart = async (req, res) => {
   }
 };
 
+/* Crear un Carrito */
 export const postCart = async (req, res) => {
-  const { date, total_price, payment_id, customer_id, items } = req.body;
+  const { date, total_price, payment_id, user_id, items } = req.body;
 
   try {
     const newCart = await Cart.create({
       date,
       total_price,
       payment_id,
-      customer_id
+      user_id
     });
 
+    /* Insertar items al Detalle del Carrito */
     items.forEach(v => { v.cart_id = newCart.id });
 
-
+    /* Crear Detalle del Carrito */
     const newCartItems = await CartItems.bulkCreate(items);
 
     res.json(newCart);
@@ -66,17 +67,17 @@ export const postCart = async (req, res) => {
   }
 };
 
+/* Actualizar un Carrito */
 export const putCart = async (req, res) => {
   const { id } = req.params;
-  const { name, date, total_price } = req.body;
+  const { date, total_price, payment_id, user_id } = req.body;
 
   try {
     const cart = await Cart.findByPk(id);
-    cart.name = name;
     cart.date = date;
-    cart.total_price = total_price; {
-
-    }
+    cart.total_price = total_price;
+    cart.payment_id = payment_id;
+    cart.user_id = user_id;
 
     await cart.save();
 
@@ -86,6 +87,7 @@ export const putCart = async (req, res) => {
   }
 };
 
+/* Borrar un Carrito */
 export const deleteCart = async (req, res) => {
   try {
     const { id } = req.params;

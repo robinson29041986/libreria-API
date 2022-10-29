@@ -1,4 +1,6 @@
 import { Users } from "../models/Users.js";
+import bcrypt from 'bcrypt';
+import { Auth } from "../configs/Auth.js";
 
 /* Obtener todos los usuarios */
 export const getUsers = async (req, res) => {
@@ -25,12 +27,13 @@ export const getUsers = async (req, res) => {
   }
 };
 
+/* Obtener un solo Usuario */
 export const getUser = async (req, res) => {
   try {
-    const { id } = req.params;
+    const { id_number } = req.params;
     const user = await Users.findOne({
       where: {
-        id,
+        id_number
       },
     });
 
@@ -43,19 +46,22 @@ export const getUser = async (req, res) => {
   }
 };
 
+/* Crear un Nuevo Usuario */
 export const postUser = async (req, res) => {
 
   try {
 
-    const { first_name, last_name, birthday, cellphone, email, password } = req.body;
+    const { id_number, first_name, last_name, birthday, cellphone, address, email, password } = req.body;
 
-    const pwd = await bcrypt.hash(password, Number, parseInt(Auth.rounds));
+    const pwd = await bcrypt.hash(password, Number.parseInt(Auth.rounds));
 
     const newUser = await Users.create({
+      id_number,
       first_name,
       last_name,
       birthday,
       cellphone,
+      address,
       email,
       password: pwd
     });
@@ -66,19 +72,22 @@ export const postUser = async (req, res) => {
   }
 };
 
+/* Actualizar a un Usuario */
 export const putUser = async (req, res) => {
 
   try {
     const { id } = req.params;
-    const { first_name, last_name, birthday, cellphone, email, password } = req.body;
+    const { id_number, first_name, last_name, birthday, cellphone, address, email, password } = req.body;
 
-    const pwd = await bcrypt.hash(password, Number, parseInt(Auth.rounds));
+    const pwd = await bcrypt.hash(password, Number.parseInt(Auth.rounds));
 
     const user = await Users.findByPk(id);
+    user.id_number = id_number
     user.first_name = first_name;
     user.last_name = last_name;
     user.birthday = birthday;
     user.cellphone = cellphone;
+    user.address = address;
     user.email = email;
     user.password = pwd;
     await user.save();
@@ -89,6 +98,7 @@ export const putUser = async (req, res) => {
   }
 };
 
+/* Eliminar a un Usuario */
 export const deleteUser = async (req, res) => {
   try {
     const { id } = req.params;

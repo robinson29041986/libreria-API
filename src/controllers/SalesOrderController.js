@@ -1,5 +1,7 @@
 import { SalesOrder } from '../models/SalesOrder.js';
 
+
+/* Obtener todas las Ordenes de Venta */
 export const getSalesOrder = async (req, res) => {
   try {
     /* Valores para la paginacion */
@@ -24,6 +26,7 @@ export const getSalesOrder = async (req, res) => {
   }
 };
 
+/* Obtener una Orden de Venta */
 export const getSaleOrder = async (req, res) => {
   try {
     const { id } = req.params;
@@ -42,6 +45,7 @@ export const getSaleOrder = async (req, res) => {
   }
 };
 
+/* Crear una Orden de Venta */
 export const postSaleOrder = async (req, res) => {
   const { id } = req.body;
 
@@ -56,13 +60,16 @@ export const postSaleOrder = async (req, res) => {
   }
 };
 
+/* Actualizar una Orden de Venta */
 export const putSaleOrder = async (req, res) => {
   const { id } = req.params;
-  const { card_id } = req.body;
+  const { card_id, user_id } = req.body;
 
   try {
     const saleOrder = await SalesOrder.findByPk(id);
     saleOrder.card_id = card_id;
+    saleOrder.user_id = user_id;
+
     await saleOrder.save();
 
     res.json(saleOrder);
@@ -71,6 +78,7 @@ export const putSaleOrder = async (req, res) => {
   }
 };
 
+/* Eliminar una Orden de Venta */
 export const deleteSaleOrder = async (req, res) => {
   try {
     const { id } = req.params;

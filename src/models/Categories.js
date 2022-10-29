@@ -1,6 +1,5 @@
 import { sequelize } from '../configs/Database.js';
 import { DataTypes } from 'sequelize';
-import { Catalogs } from './Catalogs.js';
 
 export const Categories = sequelize.define('category', {
   id: {
@@ -32,7 +31,7 @@ export const Categories = sequelize.define('category', {
     validate: {
       max: {
         args: 255,
-        msg: 'La descripcion debe tener 255 caracteres.'
+        msg: 'La descripcion puede tener hasta 255 caracteres.'
       },
     }
   }
@@ -43,20 +42,4 @@ export const Categories = sequelize.define('category', {
   timestamps: true,
   createdAt: 'created_at',
   updatedAt: 'updated_at'
-});
-
-/* Relacion de la Categoria con el Catalogo */
-Categories.hasMany(Catalogs, {
-  foreignKey: {
-    name: 'category_id',
-    allowNull: false
-  },
-  sourceKey: 'id',
-  onDelete: 'NO ACTION',
-  onUpdate: 'CASCADE'
-});
-
-Catalogs.belongsTo(Categories, {
-  foreignKey: 'category_id',
-  targetId: 'id'
 });

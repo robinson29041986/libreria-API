@@ -1,5 +1,6 @@
 import { PaymentMethods } from "../models/PaymentMethods.js";
 
+/* Obtener todos los Metodos de Pago */
 export const getPayments = async (req, res) => {
   try {
     /* Valores para la paginacion */
@@ -24,6 +25,7 @@ export const getPayments = async (req, res) => {
   }
 };
 
+/* Obtener un solo Metodo de Pago  */
 export const getPayment = async (req, res) => {
   try {
     const { id } = req.params;
@@ -42,6 +44,7 @@ export const getPayment = async (req, res) => {
   }
 };
 
+/* Crear un Metodo de Pago */
 export const postPayment = async (req, res) => {
   const { name } = req.body;
 
@@ -56,6 +59,7 @@ export const postPayment = async (req, res) => {
   }
 };
 
+/* Actualizar un Metodo de Pago */
 export const putPayment = async (req, res) => {
   const { id } = req.params;
   const { name, status } = req.body;
@@ -73,6 +77,7 @@ export const putPayment = async (req, res) => {
   }
 };
 
+/* Eliminar un Metodo de Pago */
 export const deletePayment = async (req, res) => {
   try {
     const { id } = req.params;

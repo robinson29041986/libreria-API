@@ -4,23 +4,32 @@ import { CartItems } from "./CartItems.js";
 import { SalesOrder } from "./SalesOrder.js";
 import { PaymentMethods } from "./PaymentMethods.js";
 
-export const Cart = sequelize.define(
-  'cart',
-  {
-    id: {
-      type: DataTypes.INTEGER,
-      autoIncrement: true,
-      primaryKey: true,
-    },
-    date: {
-      type: DataTypes.DATE,
-      allowNull: false,
-    },
-    total_price: {
-      type: DataTypes.DECIMAL,
-      allowNull: false,
-    },
+export const Cart = sequelize.define('cart', {
+  id: {
+    type: DataTypes.INTEGER,
+    autoIncrement: true,
+    primaryKey: true,
   },
+  date: {
+    type: DataTypes.DATE,
+    allowNull: false,
+    validate: {
+      isDate: {
+        msg: 'el formato es similar a AAAA-MM-DD.'
+      },
+    }
+  },
+  total_price: {
+    type: DataTypes.DECIMAL,
+    allowNull: false,
+    validate: {
+      isNumeric: {
+        args: true,
+        msg: 'Solo introduzca valores numericos o decimales.'
+      }
+    }
+  }
+},
   {
     /* Personalización del timestamps */
 
@@ -32,7 +41,6 @@ export const Cart = sequelize.define(
 );
 
 /* Relacion Carrito al detalle de carrito */
-
 Cart.hasMany(CartItems, {
   foreignKey: {
     name: "cart_id",
@@ -43,13 +51,13 @@ Cart.hasMany(CartItems, {
   onUpdate: "CASCADE",
 });
 
+/* Relacion del Detalle del Carrito al Carrito */
 CartItems.belongsTo(Cart, {
   foreignKey: "cart_id",
   targetId: "id",
 });
 
 /* Relacion carrito de compras a orden de venta */
-
 Cart.hasMany(SalesOrder, {
   foreignKey: {
     name: "cart_id",
@@ -60,13 +68,13 @@ Cart.hasMany(SalesOrder, {
   onUpdate: "CASCADE",
 });
 
+/* Relacion de la Orden de Venta con el Carrito */
 SalesOrder.belongsTo(Cart, {
   foreignKey: "cart_id",
   targetId: "id",
 });
 
-
-/* Declaración de la asociación */
+/* Relacion Metodo de Pago con el Carrito */
 PaymentMethods.hasMany(Cart, {
 
   foreignKey: {
@@ -80,6 +88,7 @@ PaymentMethods.hasMany(Cart, {
   onUpdate: "CASCADE",
 });
 
+/* relacion del Carritocon el Metodo de Pago */
 Cart.belongsTo(PaymentMethods, {
 
   /* Declaración de la asociación */

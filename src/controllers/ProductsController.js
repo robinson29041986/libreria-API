@@ -1,7 +1,6 @@
 import { Products } from "../models/Products.js";
 
 /* Obtener todos los productos */
-
 export const getProducts = async (req, res) => {
   try {
     /* Valores para la paginacion */
@@ -26,6 +25,7 @@ export const getProducts = async (req, res) => {
   }
 };
 
+/* Obtener un solo Producto */
 export const getProduct = async (req, res) => {
   try {
     const { id } = req.params;
@@ -44,15 +44,17 @@ export const getProduct = async (req, res) => {
   }
 };
 
+/* Crear un Producto */
 export const postProduct = async (req, res) => {
-  const { name, description, price, categories_id } = req.body;
+  const { name, description, price, stock_qty, category_id } = req.body;
 
   try {
     const newProduct = await Products.create({
       name,
       description,
       price,
-      categories_id,
+      stock_qty,
+      category_id
     });
 
     res.json(newProduct);
@@ -61,6 +63,7 @@ export const postProduct = async (req, res) => {
   }
 };
 
+/* Actualizar un Producto */
 export const putProduct = async (req, res) => {
   const { id } = req.params;
   const { name, description, price, category_id } = req.body;
@@ -79,6 +82,7 @@ export const putProduct = async (req, res) => {
   }
 };
 
+/* Eliminar un Producto */
 export const deleteProduct = async (req, res) => {
   try {
     const { id } = req.params;

@@ -1,7 +1,7 @@
 import { Categories } from "../models/Categories.js";
 import { Products } from "../models/Products.js";
 
-/* Obtener todos los usuarios */
+/* Obtener todas laas categorias */
 export const getCategories = async (req, res) => {
   try {
     /* Valores para la paginacion */
@@ -26,6 +26,7 @@ export const getCategories = async (req, res) => {
   }
 };
 
+/* Obtener una Categoria */
 export const getCategory = async (req, res) => {
   try {
     const { id } = req.params;
@@ -44,6 +45,7 @@ export const getCategory = async (req, res) => {
   }
 };
 
+/* Crear una Categoria */
 export const postCategory = async (req, res) => {
   const { name, description } = req.body;
 
@@ -59,6 +61,7 @@ export const postCategory = async (req, res) => {
   }
 };
 
+/* Actualizar una Categoria */
 export const putCategory = async (req, res) => {
   const { id } = req.params;
   const { name, description } = req.body;
@@ -76,6 +79,7 @@ export const putCategory = async (req, res) => {
   }
 };
 
+/* Borrar una Categoria */
 export const deleteCategory = async (req, res) => {
   try {
     const { id } = req.params;
@@ -91,10 +95,11 @@ export const deleteCategory = async (req, res) => {
   }
 };
 
+/* Obtener todo los Productos de una Categoria */
 export const getCategoriesProducts = async (req, res) => {
   const { id } = req.params
   const products = await Products.findAll({
-    where: { categories_id: id }
+    where: { category_id: id }
   });
   res.json(products);
 };
