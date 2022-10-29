@@ -9,7 +9,7 @@ import {
 
 const router = Router();
 
-/* Declaración de las rutas Modelo Categories */
+/* Declaración de las rutas Modelo Metodos de Pago */
 
 router.get("/payments", getPayments);
 router.post("/payments", postPayment);

@@ -9,7 +9,7 @@ import {
 
 const router = Router();
 
-/* Declaracion de Ruta */
+/* Declaracion de Ruta Modelo Ordenes de Venta */
 
 router.get("sales_order", getSalesOrder);
 router.post("/sales_order", postSaleOrder);

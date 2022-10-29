@@ -10,7 +10,7 @@ import {
 
 const router = Router();
 
-/* Declaración de las rutas Modelo Categories */
+/* Declaración de las rutas Modelo Categoria */
 
 router.get("/categories", getCategories);
 router.post("/categories", postCategory);
