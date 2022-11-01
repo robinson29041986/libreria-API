@@ -5,8 +5,7 @@
   "main": "Index.js",
   "type": "module",
   "scripts": {
-    "start": "node src/Index.js",
-    "dev": "nodemon src/Index.js"
+    "start": "node src/Index.js"
   },
   "keywords": [],
   "author": "Robinson Sthig Rodriguez",
