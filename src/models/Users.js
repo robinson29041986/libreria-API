@@ -164,4 +164,3 @@ SalesOrder.belongsTo(Users, {
   foreignKey: 'user_id',
   targetId: 'id'
 });
-

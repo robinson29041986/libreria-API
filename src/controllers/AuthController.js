@@ -1,4 +1,5 @@
 import { Users } from "../models/Users.js";
+import { Roles } from "../models/Roles.js";
 import { Auth } from "../configs/Auth.js";
 import jwt from "jsonwebtoken";
 import bcrypt from 'bcrypt';
@@ -48,16 +49,33 @@ export const signUp = async (req, res) => {
   const pwd = await bcrypt.hash(password, Number.parseInt(Auth.rounds));
 
   try {
-    const newUser = await Users.create({
-      id_number,
-      first_name,
-      last_name,
-      birthday,
-      cellphone,
-      address,
-      email,
-      password: pwd
+
+    const [role, created] = await Roles.findOrCreate({
+      where:
+      {
+        name: 'Administrador',
+        description: 'Acceso a todas las funciones del sistema'
+      }
     });
+
+    if (!created) {
+
+      res.status(404).json({ message: 'Solo se puede tener un solo Administrador' });
+    } else {
+
+      const newUser = await Users.create({
+        id_number,
+        first_name,
+        last_name,
+        birthday,
+        cellphone,
+        address,
+        email,
+        password: pwd,
+        role_id: role_id
+      });
+
+    }
     res.json(newUser)
   } catch (error) {
     return res.status(500).json({ message: error.message });

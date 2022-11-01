@@ -3,12 +3,13 @@ import dotenv from "dotenv";
 
 /* Importacion de Rutas */
 
-import ProductsRoutes from "./routes/ProductsRoutes.js";
-import CategoriesRoutes from "./routes/CategoriesRoutes.js";
-import UsersRoutes from "./routes/UsersRoutes.js";
-import SalesOrderRoutes from "./routes/SalesOrderRoutes.js";
-import CartRoutes from "./routes/CartRoutes.js";
-import PaymentRoutes from "./routes/PaymentRoutes.js";
+import Products from "./routes/ProductsRoutes.js";
+import Categories from "./routes/CategoriesRoutes.js";
+import Users from "./routes/UsersRoutes.js";
+import SalesOrder from "./routes/SalesOrderRoutes.js";
+import Roles from "./routes/RolesRoutes.js";
+import Cart from "./routes/CartRoutes.js";
+import PaymentMethods from "./routes/PaymentRoutes.js";
 import Auths from "./routes/AuthRoutes.js";
 
 dotenv.config();
@@ -18,12 +19,13 @@ const App = express();
 App.use(express.json());
 
 App.use(Auths);
-App.use(ProductsRoutes);
-App.use(CategoriesRoutes);
-App.use(UsersRoutes);
-App.use(SalesOrderRoutes);
-App.use(CartRoutes);
-App.use(PaymentRoutes);
+App.use(Products);
+App.use(Categories);
+App.use(Users);
+App.use(Roles);
+App.use(SalesOrder);
+App.use(Cart);
+App.use(PaymentMethods);
 
 
 /* Error 404 endpoint */

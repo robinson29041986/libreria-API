@@ -1,9 +1,11 @@
 import { Users } from "../models/Users.js";
+import { UsersRoles } from "../models/UsersRoles.js";
 import bcrypt from 'bcrypt';
 import { Auth } from "../configs/Auth.js";
 
 /* Obtener todos los usuarios */
 export const getUsers = async (req, res) => {
+
   try {
     /* Valores para la paginacion */
 
@@ -30,10 +32,10 @@ export const getUsers = async (req, res) => {
 /* Obtener un solo Usuario */
 export const getUser = async (req, res) => {
   try {
-    const { id_number } = req.params;
+    const { id } = req.params;
     const user = await Users.findOne({
       where: {
-        id_number
+        id
       },
     });
 
@@ -51,7 +53,7 @@ export const postUser = async (req, res) => {
 
   try {
 
-    const { id_number, first_name, last_name, birthday, cellphone, address, email, password } = req.body;
+    const { id_number, first_name, last_name, birthday, cellphone, address, email, password, role_id } = req.body;
 
     const pwd = await bcrypt.hash(password, Number.parseInt(Auth.rounds));
 
@@ -63,10 +65,19 @@ export const postUser = async (req, res) => {
       cellphone,
       address,
       email,
-      password: pwd
+      password: pwd,
+    });
+    /* Añadimos rol al Usuario */
+    await UsersRoles.create({
+      user_id: newUser.id,
+      role_id
     });
 
-    res.json(newUser);
+    res.json({
+      user: newUser,
+      role: role_id
+    });
+
   } catch (error) {
     return res.status(500).json({ message: error.message });
   }
@@ -77,7 +88,7 @@ export const putUser = async (req, res) => {
 
   try {
     const { id } = req.params;
-    const { id_number, first_name, last_name, birthday, cellphone, address, email, password } = req.body;
+    const { id_number, first_name, last_name, birthday, cellphone, address, email, password, role_id } = req.body;
 
     const pwd = await bcrypt.hash(password, Number.parseInt(Auth.rounds));
 
@@ -89,6 +100,7 @@ export const putUser = async (req, res) => {
     user.cellphone = cellphone;
     user.address = address;
     user.email = email;
+    user.role_id = role_id;
     user.password = pwd;
     await user.save();
 
