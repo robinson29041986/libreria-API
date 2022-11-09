@@ -19,6 +19,7 @@ export const signIn = async (req, res) => {
       /* El Usuario no esta registrado */
       return res.status(404).json({ message: 'El email no es correcto' });
     } else {
+
       if (await bcrypt.compare(password, user.password)) {
 
         /* Token Creado Para iniciar sesion */
@@ -27,10 +28,12 @@ export const signIn = async (req, res) => {
         /* Se Devuelve en Token */
 
         res.json({
-          user: user,
+          user: user.first_name,
           token: token
         });
+
       } else {
+
         return res.status(403).json({ message: 'La contraseña no es Valida' });
       }
     }
@@ -46,21 +49,19 @@ export const signUp = async (req, res) => {
 
   const { id_number, first_name, last_name, birthday, cellphone, address, email, password } = req.body;
 
-  const pwd = await bcrypt.hash(password, Number.parseInt(Auth.rounds));
-
   try {
 
-    const [role, created] = await Roles.findOrCreate({
+    const roleUser = await Roles.findOne({
       where:
       {
-        name: 'Administrador',
-        description: 'Acceso a todas las funciones del sistema'
+        name: 'Customer'
       }
+
     });
 
-    if (!created) {
+    if (!roleUser) {
 
-      res.status(404).json({ message: 'Solo se puede tener un solo Administrador' });
+      res.status(404).json({ message: 'No se puede asignar el Rol' });
     } else {
 
       const newUser = await Users.create({
@@ -71,12 +72,13 @@ export const signUp = async (req, res) => {
         cellphone,
         address,
         email,
-        password: pwd,
-        role_id: role_id
+        password,
+        role_id: roleUser.id
       });
 
+      res.json(newUser);
+
     }
-    res.json(newUser)
   } catch (error) {
     return res.status(500).json({ message: error.message });
   }

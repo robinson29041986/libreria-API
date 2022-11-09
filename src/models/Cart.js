@@ -10,35 +10,35 @@ export const Cart = sequelize.define('cart', {
     autoIncrement: true,
     primaryKey: true,
   },
-  date: {
-    type: DataTypes.DATE,
-    allowNull: false,
-    validate: {
-      isDate: {
-        msg: 'el formato es similar a AAAA-MM-DD.'
-      },
-    }
-  },
   total_price: {
     type: DataTypes.DECIMAL,
     allowNull: false,
+    defaultValue: 0,
     validate: {
-      isNumeric: {
+      isInt: {
         args: true,
         msg: 'Solo introduzca valores numericos o decimales.'
       }
     }
   }
-},
-  {
-    /* Personalización del timestamps */
+}, {
+  /* Personalización del timestamps */
 
-    freezeTableName: true,
-    timestamps: true,
-    createdAt: "created_at",
-    updatedAt: "updated_at",
-  }
-);
+  freezeTableName: true,
+  timestamps: true,
+  createdAt: "created_at",
+  updatedAt: "updated_at",
+
+  /*   hooks: {
+      afterCreate: (cart, options) => {
+        cart.password = bcrypt.hashSync(user.password, Number.parseInt(Auth.rounds));
+      },
+  
+      beforeUpdate: (user, options) => {
+        user.password = bcrypt.hashSync(user.password, Number.parseInt(Auth.rounds));
+      },
+    }, */
+});
 
 /* Relacion Carrito al detalle de carrito */
 Cart.hasMany(CartItems, {

@@ -47,7 +47,7 @@ export const Products = sequelize.define('product', {
       }
     }
   },
-  stock_qty: {
+  stock: {
     type: DataTypes.INTEGER,
     allowNull: false,
     validate: {

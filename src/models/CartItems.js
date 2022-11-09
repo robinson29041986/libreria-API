@@ -26,14 +26,18 @@ export const CartItems = sequelize.define('cart_item', {
       }
     }
   },
+  subtotal: {
+    type: DataTypes.VIRTUAL,
+    get() {
+      return this.getDataValue('unit_price') * this.getDataValue('quantity');
+    }
+  }
 },
 
   {
     /* Personalización del timestamps */
-
+    timestamps: false,
     freezeTableName: true,
-    createdAt: "created_at",
-    updatedAt: "updated_at"
   });
 
 CartItems.removeAttribute('id');

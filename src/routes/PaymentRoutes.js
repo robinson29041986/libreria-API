@@ -1,10 +1,10 @@
 import { Router } from "express";
 import {
-    getPayments,
-    postPayment,
-    putPayment,
-    deletePayment,
-    getPayment,
+  getPayments,
+  postPayment,
+  putPayment,
+  deletePayment,
+  getPayment,
 } from "../controllers/PaymentMethodsController.js";
 
 const router = Router();

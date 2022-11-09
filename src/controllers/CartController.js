@@ -34,7 +34,7 @@ export const getCart = async (req, res) => {
       },
     });
 
-    if (!category)
+    if (!cart)
       return res.status(404).json({ message: "El Contenido del Carrito de Compras no existe" });
 
     res.json(cart);
@@ -61,7 +61,11 @@ export const postCart = async (req, res) => {
     /* Crear Detalle del Carrito */
     const newCartItems = await CartItems.bulkCreate(items);
 
-    res.json(newCart);
+    res.json({
+      cart: newCart,
+      items: newCartItems
+    });
+
   } catch (error) {
     return res.status(500).json({ message: error.message });
   }

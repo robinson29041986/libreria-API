@@ -56,6 +56,7 @@ export const postRole = async (req, res) => {
     });
 
     res.json(newRole);
+
   } catch (error) {
     return res.status(500).json({ message: error.message });
   }
