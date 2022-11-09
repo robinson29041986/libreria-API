@@ -2,6 +2,8 @@ import { sequelize } from "../configs/Database.js";
 import { DataTypes } from "sequelize";
 import { Cart } from "./Cart.js";
 import { SalesOrder } from "./SalesOrder.js";
+import { Auth } from "../configs/Auth.js";
+import bcrypt from 'bcrypt';
 
 export const Users = sequelize.define('users', {
   id: {
@@ -25,6 +27,10 @@ export const Users = sequelize.define('users', {
   },
   first_name: {
     type: DataTypes.STRING,
+    get() {
+      const first_name = this.getDataValue('first_name');
+      return first_name ? first_name.toUpperCase() : null;
+    },
     allowNull: false,
     validate: {
       len: {
@@ -39,6 +45,10 @@ export const Users = sequelize.define('users', {
   },
   last_name: {
     type: DataTypes.STRING,
+    get() {
+      const last_name = this.getDataValue('last_name');
+      return last_name ? last_name.toUpperCase() : null;
+    },
     allowNull: false,
     validate: {
       len: {
@@ -109,23 +119,29 @@ export const Users = sequelize.define('users', {
     type: DataTypes.TEXT,
     allowNull: false,
     validate: {
-      min: {
-        args: 8,
-        msg: 'La contraseña debe tener minimo una longitud de 8 caracteres.'
+      len: {
+        args: [8, 255],
+        msg: 'La contraseña debe tener minimo 8 caracteres.'
       }
-    }
-  },
-},
+    },
+  }
+}, {
+  /* Opciones De Sequelize */
+  freezeTableName: true,
+  timestamps: true,
+  createdAt: "created_at",
+  updatedAt: "updated_at",
 
-  {
-    /* Opciones De Sequelize */
+  hooks: {
+    beforeCreate: (user, options) => {
+      user.password = bcrypt.hashSync(user.password, Number.parseInt(Auth.rounds));
+    },
 
-    freezeTableName: true,
-    timestamps: true,
-    createdAt: "created_at",
-    updatedAt: "updated_at",
-  },
-);
+    beforeUpdate: (user, options) => {
+      user.password = bcrypt.hashSync(user.password, Number.parseInt(Auth.rounds));
+    },
+  }
+});
 
 /* Relacion Usuario al Carrito */
 Users.hasMany(Cart, {

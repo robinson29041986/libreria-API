@@ -1,7 +1,4 @@
 import { Users } from "../models/Users.js";
-import { UsersRoles } from "../models/UsersRoles.js";
-import bcrypt from 'bcrypt';
-import { Auth } from "../configs/Auth.js";
 
 /* Obtener todos los usuarios */
 export const getUsers = async (req, res) => {
@@ -55,8 +52,6 @@ export const postUser = async (req, res) => {
 
     const { id_number, first_name, last_name, birthday, cellphone, address, email, password, role_id } = req.body;
 
-    const pwd = await bcrypt.hash(password, Number.parseInt(Auth.rounds));
-
     const newUser = await Users.create({
       id_number,
       first_name,
@@ -65,18 +60,11 @@ export const postUser = async (req, res) => {
       cellphone,
       address,
       email,
-      password: pwd,
-    });
-    /* Añadimos rol al Usuario */
-    await UsersRoles.create({
-      user_id: newUser.id,
+      password,
       role_id
     });
 
-    res.json({
-      user: newUser,
-      role: role_id
-    });
+    res.json(newUser);
 
   } catch (error) {
     return res.status(500).json({ message: error.message });
@@ -90,8 +78,6 @@ export const putUser = async (req, res) => {
     const { id } = req.params;
     const { id_number, first_name, last_name, birthday, cellphone, address, email, password, role_id } = req.body;
 
-    const pwd = await bcrypt.hash(password, Number.parseInt(Auth.rounds));
-
     const user = await Users.findByPk(id);
     user.id_number = id_number
     user.first_name = first_name;
@@ -101,10 +87,12 @@ export const putUser = async (req, res) => {
     user.address = address;
     user.email = email;
     user.role_id = role_id;
-    user.password = pwd;
+    user.password = password;
+
     await user.save();
 
     res.json(user);
+
   } catch (error) {
     return res.status(500).json({ message: error.message });
   }
@@ -120,6 +108,8 @@ export const deleteUser = async (req, res) => {
         id,
       },
     });
+
+
     res.sendStatus(204);
   } catch (error) {
     return res.status(500).json({ message: error.message });
