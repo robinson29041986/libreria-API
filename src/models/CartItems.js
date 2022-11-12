@@ -1,6 +1,6 @@
 import { sequelize } from '../configs/Database.js';
 import { DataTypes } from 'sequelize';
-
+import { Products } from "./Products.js";
 export const CartItems = sequelize.define('cart_item', {
   quantity: {
     type: DataTypes.INTEGER,
@@ -38,6 +38,22 @@ export const CartItems = sequelize.define('cart_item', {
     /* Personalización del timestamps */
     timestamps: false,
     freezeTableName: true,
+
+
+    hooks: {
+      afterBulkCreate: (cart_item, options) => {
+        cart_item.map(async (item) => {
+          /* Se Guarda el id del producto y la cantidad */
+          const id = item.product_id;
+          const quantity = item.quantity;
+
+          const product = await Products.findByPk(id);
+
+          product.stock = product.stock - quantity;
+          product.save()
+        });
+      }
+    },
   });
 
 CartItems.removeAttribute('id');
