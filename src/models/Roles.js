@@ -11,6 +11,10 @@ export const Roles = sequelize.define('roles', {
   },
   name: {
     type: DataTypes.STRING,
+    get() {
+      const name = this.getDataValue('name');
+      return name ? name.toUpperCase() : null;
+    },
     allowNull: false,
     unique: {
       args: true,

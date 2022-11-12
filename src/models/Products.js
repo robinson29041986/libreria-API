@@ -11,6 +11,10 @@ export const Products = sequelize.define('product', {
   },
   name: {
     type: DataTypes.STRING(50),
+    get() {
+      const name = this.getDataValue('name');
+      return name ? name.toUpperCase() : null;
+    },
     allowNull: false,
     unique: {
       args: true,
@@ -61,7 +65,7 @@ export const Products = sequelize.define('product', {
 
       }
     }
-  }
+  },
 },
   {
     /* Personalización del timestamps */

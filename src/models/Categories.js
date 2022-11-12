@@ -9,6 +9,10 @@ export const Categories = sequelize.define('category', {
   },
   name: {
     type: DataTypes.STRING(50),
+    get() {
+      const name = this.getDataValue('name');
+      return name ? name.toUpperCase() : null;
+    },
     allowNull: false,
     unique: {
       args: true,
