@@ -46,14 +46,14 @@ export const getProduct = async (req, res) => {
 
 /* Crear un Producto */
 export const postProduct = async (req, res) => {
-  const { name, description, price, stock_qty, category_id } = req.body;
+  const { name, description, price, stock, category_id } = req.body;
 
   try {
     const newProduct = await Products.create({
       name,
       description,
       price,
-      stock_qty,
+      stock,
       category_id
     });
 
@@ -66,13 +66,14 @@ export const postProduct = async (req, res) => {
 /* Actualizar un Producto */
 export const putProduct = async (req, res) => {
   const { id } = req.params;
-  const { name, description, price, category_id } = req.body;
+  const { name, description, price, stock, category_id } = req.body;
 
   try {
     const products = await Products.findByPk(id);
     products.name = name;
     products.description = description;
     products.price = price;
+    products.stock = stock;
     products.category_id = category_id;
     await products.save();
 

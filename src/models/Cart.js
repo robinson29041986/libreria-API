@@ -29,15 +29,6 @@ export const Cart = sequelize.define('cart', {
   createdAt: "created_at",
   updatedAt: "updated_at",
 
-  /*   hooks: {
-      afterCreate: (cart, options) => {
-        cart.password = bcrypt.hashSync(user.password, Number.parseInt(Auth.rounds));
-      },
-  
-      beforeUpdate: (user, options) => {
-        user.password = bcrypt.hashSync(user.password, Number.parseInt(Auth.rounds));
-      },
-    }, */
 });
 
 /* Relacion Carrito al detalle de carrito */
