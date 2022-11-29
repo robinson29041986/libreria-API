@@ -1,6 +1,5 @@
 import express from "express";
-import dotenv from "dotenv";
-
+import dotenv from 'dotenv';
 /* Importacion de Rutas */
 
 import Products from "./routes/ProductsRoutes.js";
@@ -14,6 +13,7 @@ import Auths from "./routes/AuthRoutes.js";
 
 dotenv.config();
 const App = express();
+
 
 // Middlewares
 App.use(express.json());

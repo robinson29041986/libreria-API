@@ -17,24 +17,25 @@ export const signIn = async (req, res) => {
 
     if (!user) {
       /* El Usuario no esta registrado */
-      return res.status(404).json({ message: 'El email no es correcto' });
+      return res.status(400).json({ message: 'El email no es correcto' });
     } else {
 
       if (await bcrypt.compare(password, user.password)) {
 
         /* Token Creado Para iniciar sesion */
-        const token = jwt.sign({ user: user }, Auth.secret, { expiresIn: '1d' });
+        const token = jwt.sign({ user: user }, Auth.secret, { expiresIn: '7d' });
 
         /* Se Devuelve en Token */
 
         res.json({
-          user: user.first_name,
+          email: user.email,
+          password: password,
           token: token
         });
 
       } else {
 
-        return res.status(403).json({ message: 'La contraseña no es Valida' });
+        return res.status(400).json({ message: 'La contraseña no es Valida' });
       }
     }
 
@@ -51,18 +52,16 @@ export const signUp = async (req, res) => {
 
   try {
 
-    const roleUser = await Roles.findOne({
+    const [role, created] = await Roles.findOrCreate({
       where:
       {
-        name: 'Customer'
+        name: 'Administrador',
+        description: 'Acceso a todas la funciones del sistema'
       }
 
     });
 
-    if (!roleUser) {
-
-      res.status(404).json({ message: 'No se puede asignar el Rol' });
-    } else {
+    if (!created) {
 
       const newUser = await Users.create({
         id_number,
@@ -73,10 +72,25 @@ export const signUp = async (req, res) => {
         address,
         email,
         password,
-        role_id: roleUser.id
+        role_id: 2
       });
 
       res.json(newUser);
+    } else {
+
+      const newAdmin = await Users.create({
+        id_number,
+        first_name,
+        last_name,
+        birthday,
+        cellphone,
+        address,
+        email,
+        password,
+        role_id: role.id
+      });
+
+      res.json(newAdmin);
 
     }
   } catch (error) {

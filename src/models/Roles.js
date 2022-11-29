@@ -11,10 +11,6 @@ export const Roles = sequelize.define('roles', {
   },
   name: {
     type: DataTypes.STRING,
-    get() {
-      const name = this.getDataValue('name');
-      return name ? name.toUpperCase() : null;
-    },
     allowNull: false,
     unique: {
       args: true,
@@ -48,7 +44,20 @@ export const Roles = sequelize.define('roles', {
     freezeTableName: true,
     timestamps: true,
     createdAt: 'created_at',
-    updatedAt: 'updated_at'
+    updatedAt: 'updated_at',
+
+    hooks: {
+      afterCreate: async (roles, options) => {
+        if (roles.name === 'Administrador') {
+          const mainRoles = await Roles.create(
+            {
+              name: 'customer',
+              description: 'Acceso a la aplicacion de Ventas'
+            }
+          );
+        }
+      }
+    }
 
   });
 

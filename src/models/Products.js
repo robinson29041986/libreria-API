@@ -1,7 +1,7 @@
 import { sequelize } from '../configs/Database.js';
 import { DataTypes } from 'sequelize';
-import { CartItems } from './CartItems.js';
 import { Categories } from './Categories.js';
+import { CartItems } from "./CartItems.js"
 
 export const Products = sequelize.define('product', {
   id: {
@@ -105,7 +105,7 @@ Categories.hasMany(Products, {
   onUpdate: 'CASCADE'
 });
 
-/* Relacion de los Productoscon la Categoria */
+/* Relacion de los Productos con la Categoria */
 Products.belongsTo(Categories, {
   foreignKey: 'category_id',
   targetId: 'id'

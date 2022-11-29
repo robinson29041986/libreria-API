@@ -3,7 +3,7 @@ import { sequelize } from "./configs/Database.js";
 
 /* función asíncrona para el try catch */
 
-async function main() {
+const main = async () => {
   try {
 
     /* await sequelize.authenticate();

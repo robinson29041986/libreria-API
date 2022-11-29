@@ -1,4 +1,5 @@
 import { Router } from "express";
+import { checkToken } from "../middlewares/CheckAuth.js";
 import {
   deleteRole,
   getRole,
@@ -11,10 +12,10 @@ const router = Router();
 
 /* Declaración de las rutas Modelo Roles*/
 
-router.get("/roles", getRoles);
-router.post("/roles", postRole);
-router.put("/roles/:id", putRole);
-router.delete("/roles/:id", deleteRole);
-router.get("/roles/:id", getRole);
+router.get("/roles", checkToken, getRoles);
+router.post("/roles", checkToken, postRole);
+router.put("/roles/:id", checkToken, putRole);
+router.delete("/roles/:id", checkToken, deleteRole);
+router.get("/roles/:id", checkToken, getRole);
 
 export default router;
