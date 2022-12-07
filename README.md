@@ -33,15 +33,14 @@ Se utiliza sequelize como ORM para postgresql
 
 ## Estructurado de Carpetas
 
-.
-|--public
-    |--uploads
-|-- src
-   |--configs
-   |-- controllers
-   |-- middlewares
-   |-- models
-   |-- routes
+├──public
+    ├──uploads
+├── src
+|   ├──configs
+|   ├── controllers
+|   ├──middlewares
+|   ├── models
+|   ├──routes
 `-- config
 `-- lib
 `-- package.json
