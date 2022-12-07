@@ -1,5 +1,5 @@
-import { Categories } from "../models/Categories.js";
-import { Products } from "../models/Products.js";
+import { Categories, Products } from "../models/Associations.js";
+
 
 /* Obtener todas laas categorias */
 export const getCategories = async (req, res) => {

@@ -1,6 +1,5 @@
 import { sequelize } from '../configs/Database.js';
 import { DataTypes } from 'sequelize';
-import { Users } from './Users.js';
 
 export const Roles = sequelize.define('roles', {
 
@@ -60,20 +59,3 @@ export const Roles = sequelize.define('roles', {
     }
 
   });
-
-/* Relacion de los Roles a los  Usuario */
-Roles.hasMany(Users, {
-  foreignKey: {
-    name: 'role_id',
-    allowNull: false
-  },
-  sourceKey: 'id',
-  onDelete: 'RESTRICT',
-  onUpdate: 'CASCADE'
-});
-
-/* Relacion de los Roles de Usuario con los Roles */
-Users.belongsTo(Roles, {
-  foreignKey: 'role_id',
-  targetId: 'id'
-});

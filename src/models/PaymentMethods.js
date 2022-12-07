@@ -1,8 +1,6 @@
 import { sequelize } from '../configs/Database.js';
 import { DataTypes } from 'sequelize';
 
-
-
 export const PaymentMethods = sequelize.define('payment_methods', {
   id: {
     type: DataTypes.INTEGER,

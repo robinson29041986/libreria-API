@@ -1,5 +1,7 @@
 import express from "express";
 import dotenv from 'dotenv';
+import cors from 'cors';
+import CorsOptions from './configs/CorsOptions.js'
 /* Importacion de Rutas */
 
 import Products from "./routes/ProductsRoutes.js";
@@ -10,6 +12,7 @@ import Roles from "./routes/RolesRoutes.js";
 import Cart from "./routes/CartRoutes.js";
 import PaymentMethods from "./routes/PaymentRoutes.js";
 import Auths from "./routes/AuthRoutes.js";
+import CorsOptions from './configs/CorsOptions'
 
 dotenv.config();
 const App = express();
@@ -17,6 +20,7 @@ const App = express();
 
 // Middlewares
 App.use(express.json());
+App.use(cors(CorsOptions));
 
 App.use(Auths);
 App.use(Products);

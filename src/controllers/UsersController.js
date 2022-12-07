@@ -1,4 +1,4 @@
-import { Users } from "../models/Users.js";
+import { Users } from "../models/Associations.js";
 
 /* Obtener todos los usuarios */
 export const getUsers = async (req, res) => {

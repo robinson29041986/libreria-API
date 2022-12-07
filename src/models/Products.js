@@ -1,13 +1,14 @@
 import { sequelize } from '../configs/Database.js';
 import { DataTypes } from 'sequelize';
-import { Categories } from './Categories.js';
-import { CartItems } from "./CartItems.js"
 
 export const Products = sequelize.define('product', {
   id: {
     type: DataTypes.INTEGER,
     autoIncrement: true,
     primaryKey: true
+  },
+  image: {
+    type: DataTypes.STRING,
   },
   name: {
     type: DataTypes.STRING(50),
@@ -49,6 +50,17 @@ export const Products = sequelize.define('product', {
         args: true,
         msg: 'Solo introduzca valores numericos o decimales.'
       }
+    },
+    get() {
+      const formatterPeso = new Intl.NumberFormat('es-CO', {
+
+        style: 'currency',
+        currency: 'COP',
+        minimumFractionDigits: 0
+
+      })
+
+      return formatterPeso.format(this.getDataValue('price'));
     }
   },
   stock: {
@@ -75,38 +87,3 @@ export const Products = sequelize.define('product', {
     createdAt: 'created_at',
     updatedAt: 'updated_at'
   });
-
-/* Relacion de los Productos con el detalle de carrito */
-Products.hasMany(CartItems, {
-  foreignKey: {
-    name: 'product_id',
-    allowNull: false
-  },
-  sourceKey: 'id',
-  onDelete: 'SET NULL',
-  onUpdate: 'CASCADE'
-});
-
-/* Relacion del Detalle del Carrito a los Productos */
-CartItems.belongsTo(Products, {
-  foreignKey: 'product_id',
-  targetId: 'id'
-});
-
-
-/* Relacion de la Categoria con los Productos */
-Categories.hasMany(Products, {
-  foreignKey: {
-    name: 'category_id',
-    allowNull: false
-  },
-  sourceKey: 'id',
-  onDelete: 'NO ACTION',
-  onUpdate: 'CASCADE'
-});
-
-/* Relacion de los Productos con la Categoria */
-Products.belongsTo(Categories, {
-  foreignKey: 'category_id',
-  targetId: 'id'
-});

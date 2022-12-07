@@ -1,4 +1,4 @@
-import { PaymentMethods } from "../models/PaymentMethods.js";
+import { PaymentMethods } from "../models/Associations.js";
 
 /* Obtener todos los Metodos de Pago */
 export const getPayments = async (req, res) => {

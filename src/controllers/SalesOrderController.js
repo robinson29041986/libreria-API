@@ -1,4 +1,4 @@
-import { SalesOrder } from '../models/SalesOrder.js';
+import { SalesOrder } from "../models/Associations.js";
 
 
 /* Obtener todas las Ordenes de Venta */

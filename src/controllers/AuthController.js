@@ -1,5 +1,4 @@
-import { Users } from "../models/Users.js";
-import { Roles } from "../models/Roles.js";
+import { Roles, Users } from "../models/Associations.js";
 import { Auth } from "../configs/Auth.js";
 import jwt from "jsonwebtoken";
 import bcrypt from 'bcrypt';

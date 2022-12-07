@@ -31,7 +31,7 @@ export const CheckPolicy = async (req, res, next) => {
 
   const role = await Roles.findByPk(req.user.role_id, { attributes: ['name'] });
 
-  if (role.name === 'Administardor') {
+  if (role.name === 'Administrador') {
 
     next();
 

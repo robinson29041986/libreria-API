@@ -1,5 +1,4 @@
-import { Cart } from "../models/Cart.js";
-import { CartItems } from "../models/CartItems.js";
+import { Cart, CartItems } from "../models/Associations.js";
 
 
 /* Obtener todos los Carritos */

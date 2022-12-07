@@ -1,4 +1,4 @@
-import { Roles } from "../models/Roles.js";
+import { Roles } from "../models/Associations.js";
 
 /* Obtener todos los rol */
 export const getRoles = async (req, res) => {

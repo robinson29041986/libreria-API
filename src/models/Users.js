@@ -1,7 +1,5 @@
 import { sequelize } from "../configs/Database.js";
 import { DataTypes } from "sequelize";
-import { Cart } from "./Cart.js";
-import { SalesOrder } from "./SalesOrder.js";
 import { Auth } from "../configs/Auth.js";
 import bcrypt from 'bcrypt';
 
@@ -141,42 +139,4 @@ export const Users = sequelize.define('users', {
       user.password = bcrypt.hashSync(user.password, Number.parseInt(Auth.rounds));
     },
   }
-});
-
-/* Relacion Usuario al Carrito */
-Users.hasMany(Cart, {
-  /* Declaración de la asociación */
-  foreignKey: {
-    name: "user_id",
-    allowNull: false,
-  },
-  sourceKey: "id",
-  /* Acciones de actualización y borrado */
-  onDelete: "RESTRICT",
-  onUpdate: "CASCADE",
-});
-
-/* Relacion Carrito al Usuario */
-Cart.belongsTo(Users, {
-  /* Declaración de la asociación */
-  foreignKey: "user_id",
-  targetId: "id",
-});
-
-/* Relacion Usuario a la Orden de Venta */
-Users.hasMany(SalesOrder, {
-  foreignKey: {
-    name: 'user_id',
-    allowNull: false,
-  },
-  sourceKey: 'id',
-
-  onDelete: 'RESTRICT',
-  onUpdate: 'CASCADE',
-});
-
-/* Relacion Orden de Venta al Usuario */
-SalesOrder.belongsTo(Users, {
-  foreignKey: 'user_id',
-  targetId: 'id'
 });

@@ -1,4 +1,6 @@
-import { Products } from "../models/Products.js";
+import { Categories, Products } from "../models/Associations.js";
+import multer from 'multer';
+import path from 'path';
 
 /* Obtener todos los productos */
 export const getProducts = async (req, res) => {
@@ -12,7 +14,7 @@ export const getProducts = async (req, res) => {
     const products = await Products.findAll({
 
       /* Opciones de paginacion */
-
+      include: { model: Categories, as: 'category' },
       product: [['id', 'ASC']],
       limit: amount,
       offset: page * amount
@@ -46,10 +48,12 @@ export const getProduct = async (req, res) => {
 
 /* Crear un Producto */
 export const postProduct = async (req, res) => {
+
   const { name, description, price, stock, category_id } = req.body;
 
   try {
     const newProduct = await Products.create({
+      image: req.file.path,
       name,
       description,
       price,
@@ -62,6 +66,33 @@ export const postProduct = async (req, res) => {
     return res.status(500).json({ message: error.message });
   }
 };
+
+/* Configuracion de Almacenamiento */
+const storage = multer.diskStorage({
+  destination: (req, file, cb) => {
+    cb(null, './public/uploads/')
+  },
+  filename: (req, file, cb) => {
+    cb(null, Date.now() + path.extname(file.originalname))
+  }
+});
+
+
+/* Subida de Imagen */
+export const upload = multer({
+  storage: storage,
+  limits: { fileSize: '1000000' },
+  fileFilter: (req, file, cb) => {
+    const fileTypes = /jpeg|jpg|png/
+    const mimeType = fileTypes.test(file.mimetype)
+    const extname = fileTypes.test(path.extname(file.originalname))
+
+    if (mimeType && extname) {
+      return cb(null, true)
+    }
+    cb('Eliga un formato compatible de imagen para cargar.')
+  }
+}).single('image')
 
 /* Actualizar un Producto */
 export const putProduct = async (req, res) => {
