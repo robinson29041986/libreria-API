@@ -12,7 +12,6 @@ import Roles from "./routes/RolesRoutes.js";
 import Cart from "./routes/CartRoutes.js";
 import PaymentMethods from "./routes/PaymentRoutes.js";
 import Auths from "./routes/AuthRoutes.js";
-import CorsOptions from './configs/CorsOptions'
 
 dotenv.config();
 const App = express();
