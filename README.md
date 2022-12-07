@@ -76,7 +76,7 @@ Cuando se ejecuta la instalacion viene con nodemon
 | Iniciar Sesion                  | /login                       
 | Usuarios                        | /users             
 | Listar/Crear/ Usuario           | /users                   
-| Editar/Eliminar Usuario           /users/:id             
+| Editar/Eliminar Usuario         | /users/:id             
  
 
 ## Pruebas
