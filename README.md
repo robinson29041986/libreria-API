@@ -13,18 +13,22 @@ Es una intefaz de Aplicacion que esta Diseñada con tecnologia de Node.js, Manej
 
 ### Base de Datos
 
+> **Nota**
+
+Se utiliza sequelize como ORM para postgresql
+
 -[PostgresSQL] (https://www.postgresql.org/)
 
 ## Dependencias
 
--[Express] (https://www.expressjs.com/)
--[Sequelize] (https://www.sequelize.com/)
--[Bycrypt] (https://www.npmjs.com/package/bcrypt)
--[dotenv] (https://www.npmjs.com/package/dotenv)
--[jwt] (https://www.npmjs.com/package/jwt)
--[pg] (https://www.npmjs.com/package/pg)
--[pg-hstore] (https://www.npmjs.com/package/pg-hstore)
--[cors] (https://www.npmjs.com/package/cors)
+- [Express] (https://www.expressjs.com/)
+- [Sequelize] (https://www.sequelize.com/)
+- [Bycrypt] (https://www.npmjs.com/package/bcrypt)
+- [dotenv] (https://www.npmjs.com/package/dotenv)
+- [jwt] (https://www.npmjs.com/package/jwt)
+- [pg] (https://www.npmjs.com/package/pg)
+- [pg-hstore] (https://www.npmjs.com/package/pg-hstore)
+- [cors] (https://www.npmjs.com/package/cors)
 
 
 
