@@ -1,12 +1,32 @@
 # Online Book Sale RESTful API 
 
-> Servicio RESTful API para uan aplicacion de venta de libros online
+> Servicio API RESTFul para una aplicacion WEB de venta de libros online, creando solicitudes HTTP para realizar funciones estándar de base de datos, como crear, leer, actualizar y suprimir registros (también conocidos como CRUD)
 
 
 
-## En el Comienzo
+## En el Comienzo 💻
 
-## Requisitos Principales
+Es una intefaz de Aplicacion que esta Diseñada con tecnologia de Node.js, Manejo de respuesta en JavaScript Object Notation (JSON). Manejo de base de Datos(PostgresSQL), servicios de autorizaciones, carga y almacenamiento de archivos, control acceso de Usuarios y Clientes, encriptado de Datos 
+
+## Requisitos Principales 📉
+
+
+### Base de Datos
+
+-[PostgresSQL] (https://www.postgresql.org/)
+
+## Dependencias
+
+-[Express] (https://www.expressjs.com/)
+-[Sequelize] (https://www.sequelize.com/)
+-[Bycrypt] (https://www.npmjs.com/package/bcrypt)
+-[dotenv] (https://www.npmjs.com/package/dotenv)
+-[jwt] (https://www.npmjs.com/package/jwt)
+-[pg] (https://www.npmjs.com/package/pg)
+-[pg-hstore] (https://www.npmjs.com/package/pg-hstore)
+-[cors] (https://www.npmjs.com/package/cors)
+
+
 
 ## Estructurado de Carpetas
 
