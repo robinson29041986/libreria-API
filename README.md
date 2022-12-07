@@ -31,8 +31,22 @@ Se utiliza sequelize como ORM para postgresql
 - [cors] (https://www.npmjs.com/package/cors)
 
 
-
 ## Estructurado de Carpetas
+
+.
+|--public
+    |--uploads
+|-- src
+   |--configs
+   |-- controllers
+   |-- middlewares
+   |-- models
+   |-- routes
+`-- config
+`-- lib
+`-- package.json
+`-- README.md
+
 
 ## Configuracion del Desarrollo
 
