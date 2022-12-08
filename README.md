@@ -13,7 +13,7 @@ Es una intefaz de Aplicacion que esta Diseñada con tecnologia de Node.js, Manej
 
 ### Base de Datos
 
-> **Nota**
+> **Note**
 
 Se utiliza sequelize como ORM para postgresql
 
@@ -101,24 +101,93 @@ Cuando se ejecuta el proceso de instalacion, se incluye nodemon lo mas aconsejab
 
 - [jest] (https://jestjs.io/)
 
-**Note**
+> **Note**
 
 Para Produccion, se debe eliminar la ejecucion de Pruebas
 
 ### Configuracion de Sequelize
 
+```javascript
+import { config } from "dotenv"
+config({ path: "./../.env" })
+
+module.exports = {
+  development: {
+    database: process.env.DB_NAME,
+    username: process.env.DB_USER,
+    password: process.env.DB_PASSWORD,
+    host: process.env.DB_HOST,
+    dialect: "postgres",
+    logging: false,
+  },
+  test: {
+    database: process.env.DB_NAME,
+    username: process.env.DB_USER,
+    password: process.env.DB_PASSWORD,
+    host: process.env.DB_TEST_HOST,
+    dialect: "postgres",
+    logging: false,
+  },
+  production: {},
+}
+```
+
 ### Configuracion de Jets
+
+```javascript
+import express from 'express';
+import db from './db/models';
+
+...
+
+// Route handlers
+const authApi = require('./v1/auth');
+
+// Create server
+const app: express.Application = express();
+
+// API routes
+app.use('/v1/auth', authApi);
+
+export { app };
+```
 
 ### Ejecutando Pruebas
 
-## Despliegue
+```javascript
+  "scripts": {
+    ...
+    "test": "NODE_ENV=test jest --runInBand",
+  }
+```
 
-## Puesta en Marcha
+## Produccion
 
-## Version
+> Para produccion se debe añadir un script al archivo `package.json` analizando que la configuracion de la base de Datos este debidamente configurada.
+
+```javascript
+
+  "scripts": {
+    "start": "node src/Index.js"
+  },
+
+```
+
+## Versionado
+
+>  Se utiliza un control de versiones semántico en REST este se adapta al estandar admitido para versiones principales, menores y de parche.x.y.z de este proyecto.
+
+### Dependencia de Versionado 
+
+- [semver] (https://jestjs.io/)
+
+> **Warning**
+
+> Cuando se intenta reinstalar la dependencia, la configuracion genera un error.
 
 ## Licencia
 
-**Warninig**
+> **Warninig**
+
 
 
