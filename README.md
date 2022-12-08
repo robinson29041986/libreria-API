@@ -63,23 +63,53 @@ instalamos nodemosn en modo desarrollo
 
 npm i nodemon -D
 
-> **Nota** 
+> **Note** 
 
-Cuando se ejecuta la instalacion viene con nodemon
+Cuando se ejecuta el proceso de instalacion, se incluye nodemon lo mas aconsejable es añadir un script al archivo package.json `dev`: `node src/Index.js` paso seguido nos dirijimos a la terminal y ejecutamos el comando `npm run dev` que evita el reinicio manual del servidor.
 
 
 ## API EndPoints
 
-| RESTFul API                     | URL                                        
+| ENDPOINTS                       | URL                                        
 | --------------------------------| ------------------------------------------ 
-| Registro                        | /register                    
-| Iniciar Sesion                  | /login                       
-| Usuarios                        | /users             
-| Listar/Crear/ Usuario           | /users                   
-| Editar/Eliminar Usuario         | /users/:id             
- 
+| Registro                        | /register           
+| Iniciar Sesion                  | /login               
+| Usuarios                        | /users       
+| Listar/Crear/ Usuarios          | /users             
+| Editar/Eliminar Usuarios        | /users/:id          
+| Crear/Listar Productos          | /products
+| Editar/Eliminar Productos       | /products/:id
+| Listar/Crear Categorias         | /category
+| Editar/eliminar Categorias      | /category/:id
+| Listar/Crear Carrito            | /cart
+| Editar/Eliminar Carrito         | /cart/:id
+| Listar/Crear Metodos de Pago    | /paymentMethod
+| Editar/Eliminar Metodos de Pago | /paymentMethod/:id
+| Listar/Crear Roles              | /roles
+| Editar/Eliminar Roles           | /roles/:id
+| listar/Crear Ordenes de Venta   | /sale_order
+| Editar/Eliminar Ordenes de Venta| /sale_order/:id
+
 
 ## Pruebas
+
+### Prerrequisitos
+
+> el tester debe tener experiencia previa en Node, Postgres, Express, Sequelize y Jest
+
+### Dependencia de Prueba
+
+- [jest] (https://jestjs.io/)
+
+**Note**
+
+Para Produccion, se debe eliminar la ejecucion de Pruebas
+
+### Configuracion de Sequelize
+
+### Configuracion de Jets
+
+### Ejecutando Pruebas
 
 ## Despliegue
 
@@ -89,6 +119,6 @@ Cuando se ejecuta la instalacion viene con nodemon
 
 ## Licencia
 
-npm start
+**Warninig**
 
 
