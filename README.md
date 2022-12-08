@@ -59,13 +59,13 @@ Se llaman y se instalan las dependencias;
 
 npm i
 
-instalamos nodemosn en modo desarrollo
+instalamos nodemos en modo desarrollo
 
 npm i nodemon -D
 
 > **Note** 
 
-Cuando se ejecuta el proceso de instalacion, se incluye nodemon lo mas aconsejable es añadir un script al archivo package.json `dev`: `node src/Index.js` paso seguido nos dirijimos a la terminal y ejecutamos el comando `npm run dev` que evita el reinicio manual del servidor.
+Cuando se ejecuta el proceso de instalacion, se incluye nodemon lo mas aconsejable es añadir un script al archivo package.json `dev`: `node src/Index.js`, paso seguido nos dirijimos a la terminal y ejecutamos el comando `npm run dev` que evita el reinicio manual del servidor.
 
 
 ## API EndPoints
@@ -179,15 +179,21 @@ export { app };
 
 ### Dependencia de Versionado 
 
-- [semver] (https://jestjs.io/)
+- [semver] (https://www.npmjs.com/package/semver)
 
 > **Warning**
 
 > Cuando se intenta reinstalar la dependencia, la configuracion genera un error.
 
+Se instala la Dependencia:
+
+```shell
+  npm i semver
+```
+
 ## Licencia
 
-> **Warninig**
+GNU GENERAL PUBLIC LICENSE Version 3, 29 June 2007
 
 
 
