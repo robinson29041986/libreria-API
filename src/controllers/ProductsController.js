@@ -1,6 +1,6 @@
 import { Categories, Products } from "../models/Associations.js";
-import multer from 'multer';
-import path from 'path';
+/* import multer from 'multer';
+import path from 'path'; */
 
 /* Obtener todos los productos */
 export const getProducts = async (req, res) => {
@@ -49,11 +49,11 @@ export const getProduct = async (req, res) => {
 /* Crear un Producto */
 export const postProduct = async (req, res) => {
 
-  const { name, description, price, stock, category_id } = req.body;
+  const { name, description, price, stock, category_id, image } = req.body;
 
   try {
     const newProduct = await Products.create({
-      image: req.file.path,
+      image,
       name,
       description,
       price,
@@ -67,7 +67,7 @@ export const postProduct = async (req, res) => {
   }
 };
 
-/* Configuracion de Almacenamiento */
+/* Configuracion de Almacenamiento
 const storage = multer.diskStorage({
   destination: (req, file, cb) => {
     cb(null, './public/uploads/')
@@ -78,7 +78,7 @@ const storage = multer.diskStorage({
 });
 
 
-/* Subida de Imagen */
+Subida de Imagen
 export const upload = multer({
   storage: storage,
   limits: { fileSize: '1000000' },
@@ -92,7 +92,7 @@ export const upload = multer({
     }
     cb('Eliga un formato compatible de imagen para cargar.')
   }
-}).single('image')
+}).single('image') */
 
 /* Actualizar un Producto */
 export const putProduct = async (req, res) => {

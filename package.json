@@ -1,5 +1,5 @@
 {
-  "name": "postgresapi",
+  "name": "book-shop",
   "version": "1.0.0",
   "description": "RESTful API para una base de datos PostgresSQL",
   "main": "Index.js",

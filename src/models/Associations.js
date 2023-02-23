@@ -15,7 +15,7 @@ Products.hasMany(CartItems, {
         allowNull: false
     },
     sourceKey: 'id',
-    onDelete: 'SET NULL',
+    onDelete: 'CASCADE',
     onUpdate: 'CASCADE'
 });
 
