@@ -33,14 +33,21 @@ export const Products = sequelize.define('product', {
     }
   },
   description: {
-    type: DataTypes.STRING(255),
+    type: DataTypes.STRING(500),
     allowNull: true,
     validate: {
       max: {
-        args: 255,
-        msg: 'La descripción debe tener 255 caracteres.'
+        args: 500,
+        msg: 'La descripción debe tener 500 caracteres.'
       },
     }
+  },
+  autor: {
+    type: DataTypes.STRING(100),
+  },
+
+  isbn: {
+    type: DataTypes.DECIMAL,
   },
   price: {
     type: DataTypes.DECIMAL,

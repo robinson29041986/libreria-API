@@ -30,12 +30,12 @@ export const Categories = sequelize.define('category', {
     }
   },
   description: {
-    type: DataTypes.STRING,
+    type: DataTypes.STRING(500),
     allowNull: false,
     validate: {
       max: {
-        args: 255,
-        msg: 'La descripcion puede tener hasta 255 caracteres.'
+        args: 500,
+        msg: 'La descripcion puede tener hasta 500 caracteres.'
       },
     }
   }

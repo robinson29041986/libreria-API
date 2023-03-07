@@ -1,6 +1,7 @@
 
 import { Products } from "./Products.js";
 import { Users } from "./Users.js";
+import { Employees } from "./Employees.js";
 import { SalesOrder } from "./SalesOrder.js";
 import { Roles } from "./Roles.js";
 import { PaymentMethods } from "./PaymentMethods.js";
@@ -153,6 +154,36 @@ Cart.hasMany(SalesOrder, {
 SalesOrder.belongsTo(Cart, {
     foreignKey: "cart_id",
     targetId: "id",
+});
+
+Roles.hasMany(Employees, {
+    foreignKey: {
+        name: 'role_id',
+        allowNull: false
+    },
+    sourceKey: 'id',
+    onDelete: 'RESTRICT',
+    onUpdate: 'CASCADE'
+});
+
+Employees.belongsTo(Roles, {
+    foreignKey: 'role_id',
+    targetId: 'id'
+});
+
+Employees.hasMany(SalesOrder, {
+    foreignKey: {
+        name: 'employee_id',
+        allowNull: false,
+    },
+    sourceKey: 'id',
+    onDelete: 'RESTRICT',
+    onUpdate: 'CASCADE'
+});
+
+SalesOrder.belongsTo(Employees, {
+    foreignKey: 'employee_id',
+    targetId: 'id'
 });
 
 export { Products, Users, Roles, PaymentMethods, Categories, CartItems, Cart, SalesOrder };

@@ -49,13 +49,15 @@ export const getProduct = async (req, res) => {
 /* Crear un Producto */
 export const postProduct = async (req, res) => {
 
-  const { name, description, price, stock, category_id, image } = req.body;
+  const { image, name, description, autor, isbn, price, stock, category_id } = req.body;
 
   try {
     const newProduct = await Products.create({
       image,
       name,
       description,
+      autor,
+      isbn,
       price,
       stock,
       category_id
@@ -97,12 +99,15 @@ export const upload = multer({
 /* Actualizar un Producto */
 export const putProduct = async (req, res) => {
   const { id } = req.params;
-  const { name, description, price, stock, category_id } = req.body;
+  const { image, name, description, autor, isbn, price, stock, category_id } = req.body;
 
   try {
     const products = await Products.findByPk(id);
+    products.image = image;
     products.name = name;
     products.description = description;
+    products.autor = autor;
+    products.isbn = isbn;
     products.price = price;
     products.stock = stock;
     products.category_id = category_id;

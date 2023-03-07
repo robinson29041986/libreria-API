@@ -34,9 +34,9 @@ App.use(PaymentMethods);
 /* Error 404 endpoint */
 
 App.use((req, res, next) => {
-    res.status(404).json({
-        message: 'endpoint not found'
-    })
+  res.status(404).json({
+    message: 'endpoint not found'
+  })
 });
 
 export default App;
