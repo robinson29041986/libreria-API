@@ -11,7 +11,7 @@ export const Users = sequelize.define('users', {
   },
   card: {
     type: DataTypes.INTEGER,
-    allowNull: false,
+    allowNull: true,
     unique: {
       args: true,
       msg: 'Esta persona ya esta registrada',

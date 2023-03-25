@@ -1,4 +1,4 @@
-import { Users } from "../models/Associations.js";
+import { Users, Roles } from "../models/Associations.js";
 
 /* Obtener todos los usuarios */
 export const getUsers = async (req, res) => {
@@ -11,6 +11,7 @@ export const getUsers = async (req, res) => {
     /* buscar todos los usuarios */
 
     const users = await Users.findAll({
+      include: { model: Roles, as: 'role' },
 
       /* Opciones de paginacion */
 
@@ -50,12 +51,11 @@ export const postUser = async (req, res) => {
 
   try {
 
-    const { card, first_name, last_name, birthday, cellphone, address, email, password, role_id } = req.body;
+    const { card, name, birthday, cellphone, address, email, password, role_id } = req.body;
 
     const newUser = await Users.create({
       card,
-      first_name,
-      last_name,
+      name,
       birthday,
       cellphone,
       address,
