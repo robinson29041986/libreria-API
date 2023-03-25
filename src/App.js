@@ -2,6 +2,7 @@ import express from "express";
 import dotenv from 'dotenv';
 import cors from 'cors';
 import CorsOptions from './configs/CorsOptions.js'
+
 /* Importacion de Rutas */
 
 import Products from "./routes/ProductsRoutes.js";
@@ -20,6 +21,11 @@ const App = express();
 // Middlewares
 App.use(express.json());
 App.use(cors(CorsOptions));
+App.use(express.urlencoded({ extended: false }));
+
+
+/* App.use('/images', express.static('/public/uploads')); */
+App.use('/public/uploads', express.static('./public/uploads'))
 
 App.use(Auths);
 App.use(Products);
@@ -31,7 +37,7 @@ App.use(Cart);
 App.use(PaymentMethods);
 
 
-/* Error 404 endpoint */
+/* /* Error 404 endpoint */
 
 App.use((req, res, next) => {
   res.status(404).json({

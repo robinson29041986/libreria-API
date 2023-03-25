@@ -47,7 +47,7 @@ export const signIn = async (req, res) => {
 
 export const signUp = async (req, res) => {
 
-  const { id_number, first_name, last_name, birthday, cellphone, address, email, password } = req.body;
+  const { card, name, email, password } = req.body;
 
   try {
 
@@ -63,12 +63,8 @@ export const signUp = async (req, res) => {
     if (!created) {
 
       const newUser = await Users.create({
-        id_number,
-        first_name,
-        last_name,
-        birthday,
-        cellphone,
-        address,
+        name,
+        card,
         email,
         password,
         role_id: 2
@@ -78,12 +74,8 @@ export const signUp = async (req, res) => {
     } else {
 
       const newAdmin = await Users.create({
-        id_number,
-        first_name,
-        last_name,
-        birthday,
-        cellphone,
-        address,
+        name,
+        card,
         email,
         password,
         role_id: role.id

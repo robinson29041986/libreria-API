@@ -1,4 +1,5 @@
 import { Router } from "express";
+import { upload } from "../middlewares/Upload.js";
 import {
   deleteProduct,
   getProducts,
@@ -12,8 +13,8 @@ const router = Router();
 /* Declaración de las rutas Modelo Productos*/
 
 router.get("/products", getProducts);
-router.post("/products", postProduct);
-router.put("/products/:id", putProduct);
+router.post("/products", upload, postProduct);
+router.put("/products/:id", upload, putProduct);
 router.delete("/products/:id", deleteProduct);
 router.get("/products/:id", getProduct);
 

@@ -9,7 +9,7 @@ export const Users = sequelize.define('users', {
     autoIncrement: true,
     primaryKey: true
   },
-  id_number: {
+  card: {
     type: DataTypes.INTEGER,
     allowNull: false,
     unique: {
@@ -23,11 +23,11 @@ export const Users = sequelize.define('users', {
       }
     }
   },
-  first_name: {
+  name: {
     type: DataTypes.STRING,
     get() {
-      const first_name = this.getDataValue('first_name');
-      return first_name ? first_name.toUpperCase() : null;
+      const name = this.getDataValue('name');
+      return name ? name.toUpperCase() : null;
     },
     allowNull: false,
     validate: {
@@ -41,27 +41,9 @@ export const Users = sequelize.define('users', {
       }
     }
   },
-  last_name: {
-    type: DataTypes.STRING,
-    get() {
-      const last_name = this.getDataValue('last_name');
-      return last_name ? last_name.toUpperCase() : null;
-    },
-    allowNull: false,
-    validate: {
-      len: {
-        args: [3, 50],
-        msg: 'El apellido debe tener minimo 3 caracteres.'
-      },
-      is: {
-        args: /^[A-Za-z0-9Á-ú ]+$/u,
-        msg: 'El apellido solo admite letras',
-      }
-    }
-  },
   birthday: {
     type: DataTypes.DATEONLY,
-    allowNull: false,
+    allowNull: true,
     validate: {
       isDate: {
         msg: 'el formato es similar a AAAA-MM-DD.'
@@ -74,7 +56,7 @@ export const Users = sequelize.define('users', {
   },
   address: {
     type: DataTypes.STRING,
-    allowNull: false,
+    allowNull: true,
     validate: {
       max: {
         args: 255,
@@ -88,7 +70,7 @@ export const Users = sequelize.define('users', {
   },
   cellphone: {
     type: DataTypes.STRING,
-    allowNull: false,
+    allowNull: true,
     validate: {
       is: {
         args: /^[0-9 ]+$/u,

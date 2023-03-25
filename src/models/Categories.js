@@ -30,7 +30,7 @@ export const Categories = sequelize.define('category', {
     }
   },
   description: {
-    type: DataTypes.STRING(500),
+    type: DataTypes.STRING(1000),
     allowNull: false,
     validate: {
       max: {
