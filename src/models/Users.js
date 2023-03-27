@@ -68,7 +68,7 @@ export const Users = sequelize.define('users', {
       }
     }
   },
-  cellphone: {
+  phone: {
     type: DataTypes.STRING,
     allowNull: true,
     validate: {

@@ -73,18 +73,19 @@ export const postProduct = async (req, res) => {
 /* Actualizar un Producto */
 export const putProduct = async (req, res) => {
   const { id } = req.params;
-  const { image, name, description, autor, isbn, price, stock, category_id } = req.body;
+  const image = req.file.filename;
+  const { name, description, category_id, price, autor, isbn, stock } = req.body;
 
   try {
     const products = await Products.findByPk(id);
     products.image = image;
     products.name = name;
     products.description = description;
+    products.category_id = category_id;
+    products.price = price;
     products.autor = autor;
     products.isbn = isbn;
-    products.price = price;
     products.stock = stock;
-    products.category_id = category_id;
     await products.save();
 
     res.json(products);

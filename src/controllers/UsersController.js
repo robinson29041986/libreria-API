@@ -51,15 +51,15 @@ export const postUser = async (req, res) => {
 
   try {
 
-    const { card, name, birthday, cellphone, address, email, password, role_id } = req.body;
+    const { card, name, email, birthday, address, phone, password, role_id } = req.body;
 
     const newUser = await Users.create({
       card,
       name,
-      birthday,
-      cellphone,
-      address,
       email,
+      birthday,
+      address,
+      phone,
       password,
       role_id
     });
@@ -76,17 +76,17 @@ export const putUser = async (req, res) => {
 
   try {
     const { id } = req.params;
-    const { card, name, birthday, cellphone, address, email, password, role_id } = req.body;
+    const { card, name, email, birthday, address, phone, password, role_id } = req.body;
 
     const user = await Users.findByPk(id);
     user.card = card;
     user.name = name;
-    user.birthday = birthday;
-    user.cellphone = cellphone;
-    user.address = address;
     user.email = email;
-    user.role_id = role_id;
+    user.birthday = birthday;
+    user.phone = phone;
+    user.address = address;
     user.password = password;
+    user.role_id = role_id;
 
     await user.save();
 
