@@ -44,6 +44,10 @@ export const Products = sequelize.define('product', {
   },
   autor: {
     type: DataTypes.STRING(100),
+    get() {
+      const autor = this.getDataValue('autor');
+      return autor ? autor.toUpperCase() : null;
+    },
   },
 
   isbn: {
@@ -58,17 +62,6 @@ export const Products = sequelize.define('product', {
         msg: 'Solo introduzca valores numericos o decimales.'
       }
     },
-    get() {
-      const formatterPeso = new Intl.NumberFormat('es-CO', {
-
-        style: 'currency',
-        currency: 'COP',
-        minimumFractionDigits: 0
-
-      })
-
-      return formatterPeso.format(this.getDataValue('price'));
-    }
   },
   stock: {
     type: DataTypes.INTEGER,

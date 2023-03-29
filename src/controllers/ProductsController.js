@@ -30,9 +30,7 @@ export const getProduct = async (req, res) => {
   try {
     const { id } = req.params;
     const product = await Products.findOne({
-      where: {
-        id,
-      },
+      include: { model: Categories, as: 'category', where: { id } },
     });
 
     if (!product)
